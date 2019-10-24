@@ -24,39 +24,42 @@ namespace sc{ //sequence container
                	Node *tail;
 
             public:
-                // class iterator{
-                //     private:
-                //         Node *ptr;
-                //     public:
-                //         typedef std::ptrdiff_t difference_type; //!< Difference type used to calculated distance between iterators.
-                //         typedef Node value_type;           //!< Value type the iterator points to.
-                //         typedef Node* pointer;             //!< Pointer to the value type.
-                //         typedef Node& reference;           //!< Reference to the value type.
-                //         typedef const T& const_reference;           //!< Reference to the value type.
-                //         typedef std::bidirectional_iterator_tag iterator_category; //!< Iterator category.
-                //         iterator(T * pt=nullptr) : ptr{ pt }{}      // it( )
-                //         reference operator*(){return *ptr;} //returns the pointer`s value
-                //         pointer operator&(void){return ptr;}//returns the pointer`s reference
-                //         pointer operator->(void){return ptr;}//returns the pointer`s reference
-                //         iterator operator=(const iterator &rhs){this->ptr = rhs.ptr; } //returns the pointer`s value
-                //         iterator operator=(Node a){*this->ptr = a; } 
-                //         iterator operator+(size_t offset){return this->ptr = this->ptr + offset; }
-                //         iterator operator-(size_t offset){ptr = ptr - offset; }
-                //         size_t operator-(const iterator& lhs){return this->ptr - lhs.ptr;}
-                //         iterator& operator++() {ptr = ptr->next; return *this;}
-                //         iterator operator++(int){return ptr->next;}
-                //         iterator& operator--() { ptr = ptr->prev; return *this;}
-                //         iterator operator--(int){return ptr->prev;}
+                class iterator{
+                    private:
 
-                //         friend size_t operator-(T *a, const iterator &lhs){return (a - lhs.ptr);} //distance
+                        Node *ptr;
 
-                //         bool operator==(const iterator& rhs) const {return *this->ptr == *rhs.ptr;}
-                //         bool operator!=(const iterator& rhs) const {return *this->ptr != *rhs.ptr;}
-                //         bool operator>(const iterator &rhs) const {return this->ptr > rhs.ptr;}
-                //         bool operator<(const iterator &rhs) const {return this->ptr < rhs.ptr;}
-                //         bool operator<=(const iterator &rhs) const {return this->ptr <= rhs.ptr;}
+                    public:
 
-                // };
+                        typedef std::ptrdiff_t difference_type; //!< Difference type used to calculated distance between iterators.
+                        typedef Node value_type;           //!< Value type the iterator points to.
+                        typedef Node* pointer;             //!< Pointer to the value type.
+                        typedef Node& reference;           //!< Reference to the value type.
+                        typedef const T& const_reference;           //!< Reference to the value type.
+                        typedef std::bidirectional_iterator_tag iterator_category; //!< Iterator category.
+                        iterator(Node * pt=nullptr) : ptr{ pt }{}      // it( )
+                        reference operator*(){return *ptr;} //returns the pointer`s value
+                        pointer operator&(void){return ptr;}//returns the pointer`s reference
+                        pointer operator->(void){return ptr;}//returns the pointer`s reference
+                        iterator operator=(const iterator &rhs){this->ptr = rhs.ptr; } //returns the pointer`s value
+                        iterator operator=(T a){*this->ptr = a; } 
+                        iterator operator+(size_t offset){return this->ptr = this->ptr + offset; }
+                        iterator operator-(size_t offset){ptr = ptr - offset; }
+                        size_t operator-(const iterator& lhs){return this->ptr - lhs.ptr;}
+                        iterator& operator++() {ptr = ptr->next; return *this;}
+                        iterator operator++(int){return ptr->next;}
+                        iterator& operator--() { ptr = ptr->prev; return *this;}
+                        iterator operator--(int){return ptr->prev;}
+
+                        friend size_t operator-(T *a, const iterator &lhs){return (a - lhs.ptr);} //distance
+
+                        bool operator==(const iterator& rhs) const {return *this->ptr == *rhs.ptr;}
+                        bool operator!=(const iterator& rhs) const {return *this->ptr != *rhs.ptr;}
+                        bool operator>(const iterator &rhs) const {return this->ptr > rhs.ptr;}
+                        bool operator<(const iterator &rhs) const {return this->ptr < rhs.ptr;}
+                        bool operator<=(const iterator &rhs) const {return this->ptr <= rhs.ptr;}
+
+                };
 
             public:
 
@@ -211,14 +214,16 @@ namespace sc{ //sequence container
             const T & front() const{
                 return head->data;
             }
-            // iterator begin(){
-            //     iterator begin = head;
-            //     return begin;
+             iterator begin(){
+                return head;
+            }
+            iterator end(){
+                return tail;
+            }
+            // list& operator=( const list& other ){
+            //     head 
             // }
-            // iterator end(){
-            //     return tail;
-            // }
-            // friend bool operator==(Node a, int b){
+            // // friend bool operator==(Node a, int b){
             //     if(a.data == b)
             //         return true;
             //     else
