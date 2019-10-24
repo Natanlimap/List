@@ -26,11 +26,24 @@ namespace sc{ //sequence container
             public:
             list(){
             	head = nullptr;
-            	tail = nullptr;
+            	tail = head;
             }
             void push_front(const T& e){
-                Node *temp = new Node{e, head};
+                Node *temp = new Node{e, head, nullptr};
                 head = temp;
+            }
+            void push_back(const T& e){
+                Node *s;
+                Node *f;
+                f = head;
+                while(f!=nullptr){
+                    s = f;
+                    f = f->next;
+                }
+                Node *temp = new Node{e, nullptr, s};
+                s->next = temp;
+                tail = temp;
+
             }
             bool empty(list <T>* & head){
                 if(head == nullptr){
