@@ -69,28 +69,31 @@ int main( void )
     // }
 
 //     // Unit: copy constructor
-//     {
-//         std::cout << ">>> Unit teste #" << ++n_unit << ": copy constructor.\n";
-//         sc::list<int> seq{ 1, 2, 3, 4, 5 };
-//         sc::list<int> seq2( seq );
-//         assert( seq2.size() == 5 );
-//         assert( seq2.empty() == false );
+    {
+        std::cout << ">>> Unit teste #" << ++n_unit << ": copy constructor.\n";
+        sc::list<int> seq{ 1, 2, 3, 4, 5 };
+        sc::list<int> seq2( seq );
+        assert( seq2.size() == 5 );
+        assert( seq2.empty() == false );
 
-//         // recover elements to test.
-//         auto i{1};
-//         for( auto e : seq2 )
-//             assert ( e == i++ );
+        // recover elements to test.
+        auto i{1};
+        // for( auto e : seq2 )
+        //     assert ( e == i++ );
 
-//         // Changing seq (the original)...
-//         auto it = std::next( seq.begin(), 2 );
-//         *it = 10;
-//         // ... should not alter the copy.
-//         i = 1;
-//         for( auto e : seq2 )
-//             assert ( e == i++ );
+        // Changing seq (the original)...
+        auto it = seq.begin();
+        *it = 10;
+        // ... should not alter the copy.
+        i = 1;
+        // for( auto e : seq2 )
+        //     assert ( e == i++ );
+        seq.print();
+        seq2.print();
+        // assert(seq != seq2);
 
-//         std::cout << ">>> Passed!\n\n";
-//     }
+        std::cout << ">>> Passed!\n\n";
+    }
 
 //     // Unit: move constructor
 // #ifdef MOVE_SYNTAX_IMPLEMENTED

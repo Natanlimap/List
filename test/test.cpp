@@ -6,19 +6,16 @@
 #include "../include/list.h"
 
 int main(){
-	sc::list<int> L{1,2,3,4,5,6};
-	sc::list<int>G(10);
+	sc::list<int> L{1, 3, 4, 5};
+	// sc::list<int>::iterator it = L.begin();
+	sc::list<int>::iterator it = L.begin();
 
-	std::cout<<"G VVVVV"<<std::endl;
-	G.print();
+	// std::cout<<"G VVVVV"<<std::endl;
+	// G.print();
 	std::cout<<"L VVVVV"<<std::endl;
 	L.print();
-	assert((G != L));
-
-	G = L;
-	assert(G == L);
-	std::cout<<"G VVVVV"<<std::endl;
-	G.print();
-	std::cout<<"L VVVVV"<<std::endl;
+	// assert((G != L));
+	*it = 100;
 	L.print();
+
 }
