@@ -141,8 +141,9 @@ namespace sc{ //sequence container
             }
             template< typename InputIt >
             list( InputIt first, InputIt last ){
-                head = nullptr;
-                tail = nullptr;
+                head = new Node;
+                tail = new Node{T(), nullptr, head};
+                head->next = tail;
                 size_t capacity = last - first, count{0};
                 Node *temp;
                 temp = head;
@@ -169,9 +170,21 @@ namespace sc{ //sequence container
                         temp=temp->next;
                     }
                 }
+            list( const list& other ){
+                head = new Node;
+                tail = new Node{T(), nullptr, head};
+                head->next = tail;
+                Node *temp;
+                temp = (other.head)->next;
+                while(temp != other.tail){
+                    push_back(temp->data);
+                    temp = temp->next;
+                }
+            }
             ~list(){
-                while(tail){
+                while(tail->prev != head){
                     tail = tail->prev;
+                    delete[] tail->next;
                  
                 }
             }
@@ -204,7 +217,10 @@ namespace sc{ //sequence container
 
 
             void clear(){
-                head = tail;
+               while(tail->prev != head){
+                tail = tail->prev;
+                delete[] tail->next;
+               }
             }
             list& operator=(const list& other ){
                 if(size() != other.size()){
@@ -220,7 +236,7 @@ namespace sc{ //sequence container
                 left = head;
                 ptother = other.head;
                 size_t count{0};
-                while(count < other.size()){
+                while(count < other.size() + 1){
                         left->data = ptother->data;
                         left = left->next;
                         ptother = ptother->next;
@@ -295,10 +311,10 @@ namespace sc{ //sequence container
                 tail->next = nullptr;
             }
             const T & back() const{
-                return tail->data;
+                return tail->prev->data;
             }
             const T & front() const{
-                return head->data;
+                return head->next->data;
             }
              iterator begin(){
                 return head->next;
@@ -344,7 +360,7 @@ namespace sc{ //sequence container
                     ptlhs = lhs.head;
                     ptrhs = rhs.head;
                     while(count < rhs.size()){
-                        if(ptlhs != ptrhs){
+                        if(ptlhs->data != ptrhs->data){
                             return true;
                         }
                             ptlhs = ptlhs->next;
@@ -356,6 +372,19 @@ namespace sc{ //sequence container
                     return true;
                 }
             }
+        iterator insert( iterator pos, const T & value ){
+            iterator prev;
+            prev = head;
+            size_t distance = pos - prev;
+            while(prev != pos){
+                prev++;
+            };
+            prev--;
+            Node *temp = new Node{value};
+            temp->next = prev->next;
+            prev->next = temp;
+            return pos;
+        };
     };
 };
 #endif
