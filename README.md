@@ -5,7 +5,7 @@
 ### Initially
 1. Clone the repo
 ```sh
-git clone https:://github.com/natanlimap/Vector.git
+git clone https:://github.com/natanlimap/List.git
 ```
 
 ## Running the tests
