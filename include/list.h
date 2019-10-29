@@ -142,22 +142,18 @@ namespace sc{ //sequence container
                     count++;
                 }
             }
-            // template< typename InputIt >
-            // list( InputIt first, InputIt last ){
-            //         size_t list_size = last - first;
-            //         size_t count{0};
-            //          head = new Node;
-            //          tail = new Node{T(), nullptr, head};
-            //          head->next = tail;
-            //          iterator *temp;
-            //          temp = first;
-            //         while(temp != last){
-            //             push_front(*temp);
-            //             temp++;
-            //         }
-
-            //         std::cout<<list_size<<std::endl;
-            // }
+            template< typename InputIt >
+            list( InputIt first, InputIt last ){
+                    size_t count{0};
+                    head = new Node;
+                    tail = new Node{T(), nullptr, head};
+                    head->next = tail;
+                    iterator aux = first;
+                    while(aux != last){
+                        push_back(*aux);
+                        aux++;
+                    }
+            }
             list(const std::initializer_list<T> & il ){ //Create a list from a initializer_list
                     size_t list_size = il.size();
                     size_t count{0};
