@@ -98,16 +98,18 @@ namespace sc{ //sequence container
                         const reference operator*(){return ptr->data;} //returns the pointer`s value
                         const Node* operator&(void){return &ptr;}//returns the pointer`s reference
                         const pointer operator->(void){return ptr;}//returns the pointer`s reference
-                        const iterator operator=(const iterator &rhs){this->ptr = rhs.ptr; } //pointer`s reference
+                        const iterator operator=(const iterator &rhs){this->ptr = rhs.ptr;return this->ptr; } //pointer`s reference
                         const iterator operator+(size_t offset){
                             for(size_t i{0};i<offset;i++){
                                 this->ptr = this->ptr->next; 
                             }
+                            return this->ptr;
                         }
                         const iterator operator-(size_t offset){
                          for(size_t i{0};i<offset;i++){
                                 this->ptr = this->ptr->prev; 
                             }
+                            return this->ptr;
                         }
                         const difference_type operator-(const iterator& lhs){
                             size_t count{0};
@@ -127,21 +129,24 @@ namespace sc{ //sequence container
 
                 };
             public:
+                //Default constructor that creates an empty list.
             list(){
                 head = new Node;
                 tail = new Node{T(), nullptr, head};
                 head->next = tail;
             }
-            list(size_t size){
-                size_t count{0};
+            // /Constructs the list with count default-inserted instances of T .
+            list(size_t count){
+                size_t cont{0};
                 head = new Node;
                 tail = new Node{T(), nullptr, head};
                 head->next = tail;
-                while(count < size){
+                while(cont < count){
                     push_back(T());
-                    count++;
+                    cont++;
                 }
             }
+            //Constructs the list with the contents of the range [first, last) .
             template< typename InputIt >
             list( InputIt first, InputIt last ){
                     size_t count{0};
@@ -154,7 +159,8 @@ namespace sc{ //sequence container
                         aux++;
                     }
             }
-            list(const std::initializer_list<T> & il ){ //Create a list from a initializer_list
+            //Constructs the list with the contents of the initializer list il .
+            list(const std::initializer_list<T> & il ){ 
                     size_t list_size = il.size();
                     size_t count{0};
                      head = new Node;
@@ -170,6 +176,7 @@ namespace sc{ //sequence container
                         temp=temp->next;
                     }
                 }
+            //Copy constructor. Constructs the list with the deep copy of the contents of other .
             list( const list& other ){
                 head = new Node;
                 tail = new Node{T(), nullptr, head};
@@ -181,47 +188,15 @@ namespace sc{ //sequence container
                     temp = temp->next;
                 }
             }
+            //Destructs the list. The destructors of the elements are called and the used storage is deallocated. Note, that if the elements are pointers, the pointed-to objects are not destroyed.
             ~list(){
-                while(tail->prev != head){
+                while(tail != head){
                     tail = tail->prev;
                     delete[] tail->next;
-                 
                 }
+                delete[] head;
             }
-
-            void push_front(const T& e){                                //AJEITAR
-                Node *temp = new Node{e, head->next, head};
-                (temp->next)->prev = temp;
-                head->next = temp;
-
-            }
-            bool empty(){
-                if(head->next == tail){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-
-            }
-      
-
-            void push_back( const T &e )
-
-            {
-                Node *temp = new Node( e, tail, tail->prev);
-                (temp->prev)->next = temp; // temp->prev é o nó anterior ao tail.
-                tail->prev = temp;
-
-            }
-
-
-            void clear(){
-               while(tail->prev != head){
-                tail = tail->prev;
-                delete[] tail->next;
-               }
-            }
+            //Copy assignment operator. Replaces the contents with a copy of the contents of other.
             list& operator=(const list& other ){
                 if(size() != other.size()){
                     while(size() > other.size()){
@@ -244,6 +219,7 @@ namespace sc{ //sequence container
                 };
 
             }
+            //Replaces the contents with those identified by initializer list ilist .
             list& operator=(const std::initializer_list<T> ilist ){
                if(size() != ilist.size()){
                     while(size() > ilist.size()){
@@ -262,6 +238,72 @@ namespace sc{ //sequence container
                         count++;
                 };
             }
+            //return the number of elements in the container.
+            const size_t size()const{
+                size_t count{0};
+                Node *temp;
+                temp = head->next;
+                while(temp!=tail){
+                    count++;
+                    temp = temp->next;
+                }
+                return count;
+            }
+            //remove all elements from the container.
+            void clear(){
+               while(tail->prev != head){
+                tail = tail->prev;
+                delete[] tail->next;
+               }
+            }
+            //adds value to the front of the list
+            void push_front(const T& e){                             
+                Node *temp = new Node{e, head->next, head};
+                (temp->next)->prev = temp;
+                head->next = temp;
+
+            }
+            //adds value to the end of the list.
+            void push_back( const T &e )
+
+            {
+                Node *temp = new Node( e, tail, tail->prev);
+                (temp->prev)->next = temp; // temp->prev é o nó anterior ao tail.
+                tail->prev = temp;
+
+            }
+            //removes the object at the front of the list.
+            void pop_front(){
+                head = head->next;
+                delete[]head->prev;
+                head->prev = nullptr;
+            }
+            //removes the object at the end of the list.
+            void pop_back(){
+                tail = tail->prev;
+                delete[]tail->next;
+                tail->next = nullptr;
+            }
+            //returns the object at the end of the list.
+            const T & back() const{
+                return tail->prev->data;
+            }
+            const T & front() const{
+                return head->next->data;
+            }
+            bool empty(){
+                if(head->next == tail){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+            }
+      
+
+
+
              friend std::ostream & operator<<(std::ostream &os, const list& lista ){
                 list temp = lista;
                 temp.print();
@@ -277,16 +319,6 @@ namespace sc{ //sequence container
                     temp = temp->next;
                 }
                 std::cout<<std::endl;
-            }
-            const size_t size()const{
-                size_t count{0};
-                Node *temp;
-                temp = head->next;
-                while(temp!=tail){
-                    count++;
-                    temp = temp->next;
-                }
-                return count;
             }
             void assign(const T& value){
                 Node *temp;
@@ -304,22 +336,6 @@ namespace sc{ //sequence container
                 }
                 return temp->data;
 
-            }
-            void pop_front(){
-                head = head->next;
-                delete[]head->prev;
-                head->prev = nullptr;
-            }
-            void pop_back(){
-                tail = tail->prev;
-                delete[]tail->next;
-                tail->next = nullptr;
-            }
-            const T & back() const{
-                return tail->prev->data;
-            }
-            const T & front() const{
-                return head->next->data;
             }
              iterator begin(){
                 return head->next;

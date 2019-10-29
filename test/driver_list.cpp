@@ -39,9 +39,9 @@ int main( void )
         assert( seq.empty() == false );
         
         // recover elements to test.
-        // auto i{0};
-        // for ( auto it = seq.begin() ; it != seq.end() ; ++it, ++i )
-        //     assert( *it == i+1 );
+        auto i{0};
+        for ( auto it = seq.begin() ; it != seq.end() ; ++it, ++i )
+            assert( *it == i+1 );
 
         std::cout << ">>> Passed!\n\n";
     }
