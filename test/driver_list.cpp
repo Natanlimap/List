@@ -46,7 +46,7 @@ int main( void )
         std::cout << ">>> Passed!\n\n";
     }
 
-    Unit #5: range constructor
+    // Unit #5: range constructor
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": range constructor.\n";
         sc::list<int> seq{ 1, 2, 3, 4, 5 };
