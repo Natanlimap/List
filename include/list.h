@@ -300,10 +300,6 @@ namespace sc{ //sequence container
                 }
 
             }
-      
-
-
-
              friend std::ostream & operator<<(std::ostream &os, const list& lista ){
                 list temp = lista;
                 temp.print();
@@ -328,6 +324,27 @@ namespace sc{ //sequence container
                     temp = temp->next;
                 }
             }
+            void assign(size_t count, const T& value){
+                clear();
+                list *temp;
+                temp = new list(count);
+                temp->assign(value);
+                head = temp->head;
+                tail = temp->tail;
+            }
+
+            void assign( iterator first, iterator last ){
+                clear();
+                list *temp;
+                temp = new list();
+                head = temp->head;
+                tail = temp->tail;
+                insert(begin(), first, last);
+            }
+            void assign(std::initializer_list<T> ilist ){
+
+            }
+
             T& back(list <T>*&L){
                 Node *temp;
                 temp = L;
