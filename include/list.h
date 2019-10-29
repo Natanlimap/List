@@ -40,11 +40,12 @@ namespace sc{ //sequence container
                         T& operator*(){return ptr->data;} //returns the pointer`s value
                         pointer operator&(void){return ptr;}//returns the pointer`s reference
                         pointer operator->(void){return ptr;}//returns the pointer`s reference
-                        iterator operator=(const iterator &rhs){this->ptr = rhs.ptr; } //pointer`s reference
+                        iterator operator=(const iterator &rhs){this->ptr = rhs.ptr;return this->ptr; } //pointer`s reference
                         iterator operator+(size_t offset){
                             for(size_t i{0};i<offset;i++){
                                 this->ptr = this->ptr->next; 
                             }
+                            return this->ptr;
                         }
                         bool operator==(const iterator& rhs) const {return this->ptr == rhs.ptr;}
                         bool operator!=(const iterator& rhs) const {return this->ptr != rhs.ptr;}
@@ -55,6 +56,7 @@ namespace sc{ //sequence container
                          for(size_t i{0};i<offset;i++){
                                 this->ptr = this->ptr->prev; 
                             }
+                            return this->ptr;
                         }
                         size_t operator-(const iterator& lhs){
                             size_t count{0};
@@ -65,9 +67,9 @@ namespace sc{ //sequence container
                             return count;
                         }
                         iterator& operator++() {ptr = ptr->next; return *this;}
-                        iterator operator++(int){return ptr->next;}
+                        iterator operator++(int){return ptr = ptr->next;}
                         iterator& operator--() { ptr = ptr->prev; return *this;}
-                        iterator operator--(int){return ptr->prev;}
+                        iterator operator--(int){return ptr = ptr->prev;}
 
 
 
@@ -93,9 +95,8 @@ namespace sc{ //sequence container
                         bool operator>(const iterator &rhs) const {return this->ptr > rhs.ptr;}
                         bool operator<(const iterator &rhs) const {return this->ptr < rhs.ptr;}
                         bool operator<=(const iterator &rhs) const {return this->ptr <= rhs.ptr;}
-
                         const reference operator*(){return ptr->data;} //returns the pointer`s value
-                        const pointer operator&(void){return ptr;}//returns the pointer`s reference
+                        const Node* operator&(void){return &ptr;}//returns the pointer`s reference
                         const pointer operator->(void){return ptr;}//returns the pointer`s reference
                         const iterator operator=(const iterator &rhs){this->ptr = rhs.ptr; } //pointer`s reference
                         const iterator operator+(size_t offset){
@@ -108,18 +109,20 @@ namespace sc{ //sequence container
                                 this->ptr = this->ptr->prev; 
                             }
                         }
-                        const size_t operator-(const iterator& lhs){
+                        const difference_type operator-(const iterator& lhs){
                             size_t count{0};
-                            while(this->ptr!= lhs){
-                                ptr = ptr->next;
+                            iterator *temp;
+                            temp = this->ptr;
+                            while(temp!= lhs){
+                                temp = temp->next;
                                 count++;
                             }
                             return count;
                         }
                         const_iterator& operator++() {ptr = ptr->next; return *this;}
-                        const_iterator operator++(int){return ptr->next;}
+                        const_iterator operator++(int){return ptr = ptr->next;}
                         const_iterator& operator--() { ptr = ptr->prev; return *this;}
-                        const_iterator operator--(int){return ptr->prev;}
+                        const_iterator operator--(int){return ptr = ptr->prev;}
 
 
                 };
@@ -139,21 +142,22 @@ namespace sc{ //sequence container
                     count++;
                 }
             }
-            template< typename InputIt >
-            list( InputIt first, InputIt last ){
-                head = new Node;
-                tail = new Node{T(), nullptr, head};
-                head->next = tail;
-                size_t capacity = last - first, count{0};
-                Node *temp;
-                temp = head;
-                while(count < capacity){
-                    push_front(first->data);
-                    first++;
-                }
+            // template< typename InputIt >
+            // list( InputIt first, InputIt last ){
+            //         size_t list_size = last - first;
+            //         size_t count{0};
+            //          head = new Node;
+            //          tail = new Node{T(), nullptr, head};
+            //          head->next = tail;
+            //          iterator *temp;
+            //          temp = first;
+            //         while(temp != last){
+            //             push_front(*temp);
+            //             temp++;
+            //         }
 
-
-            }
+            //         std::cout<<list_size<<std::endl;
+            // }
             list(const std::initializer_list<T> & il ){ //Create a list from a initializer_list
                     size_t list_size = il.size();
                     size_t count{0};
@@ -244,24 +248,29 @@ namespace sc{ //sequence container
                 };
 
             }
-            // list& operator=(const std::initializer_list<T> ilist ){
-            //    if(size() != ilist.size()){
-            //         while(size() > ilist.size()){
-            //             pop_back();
-            //         };
-            //         while(size() < ilist.size()){
-            //             push_back(T());
-            //         };
-            //     };
-            //     Node *left;
-            //     // left = head->next;
-            //     size_t count{0};
-            //     while(count < ilist.size()){
-            //             left->data = *(ilist.begin() + count);
-            //             left = left->next;
-            //             count++;
-            //     };
-            // }
+            list& operator=(const std::initializer_list<T> ilist ){
+               if(size() != ilist.size()){
+                    while(size() > ilist.size()){
+                        pop_back();
+                    };
+                    while(size() < ilist.size()){
+                        push_back(T());
+                    };
+                };
+                Node *left;
+                left = head->next;
+                size_t count{0};
+                while(count < ilist.size()){
+                        left->data = *(ilist.begin() + count);
+                        left = left->next;
+                        count++;
+                };
+            }
+             friend std::ostream & operator<<(std::ostream &os, const list& lista ){
+                list temp = lista;
+                temp.print();
+                return os;
+            }
             void print(){
                 std::cout<<"List --->";
                 Node *temp;
@@ -372,19 +381,123 @@ namespace sc{ //sequence container
                     return true;
                 }
             }
-        iterator insert( iterator pos, const T & value ){
-            iterator prev;
-            prev = head;
-            size_t distance = pos - prev;
-            while(prev != pos){
-                prev++;
-            };
-            prev--;
-            Node *temp = new Node{value};
-            temp->next = prev->next;
-            prev->next = temp;
+        const_iterator find( const T & value ) const{
+                Node *temp;
+                temp = head->next;
+                const_iterator here;
+                while(temp!=tail->prev){
+                    if(temp->data = value){
+                        here = temp;
+                        return here;
+                    }
+                else{
+                    return nullptr;
+                }
+            }
+        }
+
+        iterator insert(iterator pos, const T & value ){
+           size_t count{0};
+           while(pos!=nullptr){
+            pos--;
+            count++;
+           }
+            count = count - 2   ;
+            std::cout<<count<<std::endl;
+
+            Node *aux;
+            aux = head->next;
+            while(count!= 0){
+                aux = aux->next;
+                count--;
+            }
+            Node *temp = new Node( value, aux, aux->prev);
+            (temp->prev)->next = temp; // temp->prev é o nó anterior ao tail.
+            aux->prev = temp;
+            pos = temp;
             return pos;
         };
+        iterator insert(iterator pos, iterator first, iterator last){
+           size_t count{0};
+           while(pos!=nullptr){
+            pos--;
+            count++;
+           }
+            count = count - 2   ;
+            std::cout<<count<<std::endl;
+
+            Node *aux;
+            aux = head->next;
+            while(count!= 0){
+                aux = aux->next;
+                count--;
+            }
+            Node *temp = new Node;
+            while(first != last){
+                Node *temp = new Node(*first, aux, aux->prev);
+                (temp->prev)->next = temp; // temp->prev é o nó anterior ao tail.
+                aux->prev = temp;
+                first++;
+            }
+            pos = temp;
+            return pos;
+        };
+        iterator insert(iterator pos, const std::initializer_list<T> ilist){
+           size_t count{0};
+           while(pos!=nullptr){
+            pos--;
+            count++;
+           }
+            count = count - 2   ;
+
+            Node *aux;
+            aux = head->next;
+            while(count!= 0){
+                aux = aux->next;
+                count--;
+            }
+
+            Node *temp = new Node;
+            while((ilist.begin() + count )!= ilist.end()){
+                Node *temp = new Node(*ilist.begin() + count, aux, aux->prev);
+                (temp->prev)->next = temp; // temp->prev é o nó anterior ao tail.
+                aux->prev = temp;
+                count++;
+            }
+            pos = temp;
+            return pos;
+        };
+        iterator erase( iterator pos ){
+            size_t count{0};
+            while(pos!=nullptr){
+            pos--;
+            count++;
+           }
+            count = count - 2   ;
+            Node *aux;
+            aux = head->next;
+            while(count!= 0){
+                aux = aux->next;
+                count--;
+            }
+            aux->prev->next = aux->next;
+            aux->next->prev = aux->prev;
+            delete[] aux;
+            return aux->next;
+
+        }
+
+        iterator erase(iterator first, iterator last){
+            size_t count{0};
+            iterator aux = first;
+            while(aux!=last){
+                erase(aux);
+                aux++;
+                count++;
+            }
+            return last;
+
+        }
     };
 };
 #endif

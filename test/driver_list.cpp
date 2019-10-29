@@ -46,27 +46,27 @@ int main( void )
         std::cout << ">>> Passed!\n\n";
     }
 
-    // Unit #5: range constructor
-    // {
-    //     std::cout << ">>> Unit teste #" << ++n_unit << ": range constructor.\n";
-    //     sc::list<int> seq{ 1, 2, 3, 4, 5 };
-    //     sc::list<int> seq2( seq.begin(), seq.end() );
-    //     assert( seq2.size() == 5 );
-    //     assert( seq2.empty() == false );
+    Unit #5: range constructor
+    {
+        std::cout << ">>> Unit teste #" << ++n_unit << ": range constructor.\n";
+        sc::list<int> seq{ 1, 2, 3, 4, 5 };
+        sc::list<int> seq2( seq.begin(), seq.end() );
+        assert( seq2.size() == 5 );
+        assert( seq2.empty() == false );
 
-    //     // recover elements to test.
-    //     auto i{1};
-    //     for( auto e : seq2 )
-    //         assert ( e == i++ );
+        // recover elements to test.
+        auto i{1};
+        for( auto e : seq2 )
+            assert ( e == i++ );
 
-    //     // Copy only part of the original range.
-    //     sc::list<int> vec3( std::next( seq.begin(), 1 ), std::next( seq.begin(), 3 ) );
-    //     auto it2 = std::next( seq.begin(), 1 );
-    //     for ( auto it = vec3.begin() ; it != vec3.end() ; ++it, ++it2 )
-    //         assert( *it == *it2 );
+        // Copy only part of the original range.
+        sc::list<int> vec3( std::next( seq.begin(), 1 ), std::next( seq.begin(), 3 ) );
+        auto it2 = std::next( seq.begin(), 1 );
+        for ( auto it = vec3.begin() ; it != vec3.end() ; ++it, ++it2 )
+            assert( *it == *it2 );
 
-    //     std::cout << ">>> Passed!\n\n";
-    // }
+        std::cout << ">>> Passed!\n\n";
+    }
 
 //     // Unit: copy constructor
     {
@@ -364,160 +364,160 @@ int main( void )
         std::cout << ">>> Passed!\n\n";
     }
 
-    // {
-    //     std::cout << ">>> Unit teste #" << ++n_unit << ": insert(pos, first, last).\n";
+    {
+        std::cout << ">>> Unit teste #" << ++n_unit << ": insert(pos, first, last).\n";
 
-    //     // Aux arrays.
-    //     sc::list<int> seq1 { 1, 2, 3, 4, 5 };
-    //     sc::list<int> seq2 { 1, 2, 3, 4, 5 };
-    //     sc::list<int> source { 6, 7, 8, 9, 10 };
+        // Aux arrays.
+        sc::list<int> seq1 { 1, 2, 3, 4, 5 };
+        sc::list<int> seq2 { 1, 2, 3, 4, 5 };
+        sc::list<int> source { 6, 7, 8, 9, 10 };
 
-    //     std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
-    //     // Insert at the begining.
-    //     seq1.insert( seq1.begin(), source.begin(), source.end() );
-    //     std::cout << ">>> Seq1 == " << seq1 << std::endl;
-    //     std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
-    //     assert( seq1 == ( sc::list<int>{ 6, 7, 8, 9, 10, 1, 2, 3, 4, 5 } ) );
-    //     std::cout << ">>> Ok\n\n";
+        std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
+        // Insert at the begining.
+        seq1.insert( seq1.begin(), source.begin(), source.end() );
+        std::cout << ">>> Seq1 == " << seq1 << std::endl;
+        std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
+        assert( seq1 == ( sc::list<int>{ 6, 7, 8, 9, 10, 1, 2, 3, 4, 5 } ) );
+        std::cout << ">>> Ok\n\n";
 
-        // // In the middle
-        // seq1 = seq2;
-        // seq1.insert( std::next( seq1.begin(), 2 ), source.begin(), source.end() );
-        // std::cout << ">>> Seq1 == " << seq1 << std::endl;
-        // std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
-        // assert( seq1 == ( sc::list<int>{ 1, 2, 6, 7, 8, 9, 10, 3, 4, 5 } ) );
-        // std::cout << ">>> Ok2\n\n";
+        // In the middle
+        seq1 = seq2;
+        seq1.insert( std::next( seq1.begin(), 2 ), source.begin(), source.end() );
+        std::cout << ">>> Seq1 == " << seq1 << std::endl;
+        std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
+        assert( seq1 == ( sc::list<int>{ 1, 2, 6, 7, 8, 9, 10, 3, 4, 5 } ) );
+        std::cout << ">>> Ok2\n\n";
 
-        // // At the end
-        // seq1 = seq2;
-        // seq1.insert( seq1.end(), source.begin(), source.end() );
-        // std::cout << ">>> Seq1 == " << seq1 << std::endl;
-        // std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
-        // assert( seq1 == ( sc::list<int>{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } ) );
-        // std::cout << ">>> Ok3\n\n";
-
-
-    //     std::cout << ">>> Passed!\n\n";
-    // }
-//     {
-//         std::cout << ">>> Unit teste #" << ++n_unit << ": insert(pos, initializer_list).\n";
-
-//         // Aux arrays.
-//         sc::list<int> seq1 { 1, 2, 3, 4, 5 };
-//         sc::list<int> seq2 { 1, 2, 3, 4, 5 };
-//         sc::list<int> source { 6, 7, 8, 9, 10 };
-
-//         // Inset at the begining.
-//         seq1.insert( seq1.begin(), { 6, 7, 8, 9, 10 } );
-//         assert( seq1 == ( sc::list<int>{ 6, 7, 8, 9, 10, 1, 2, 3, 4, 5 } ) );
-
-//         // In the middle
-//         seq1 = seq2;
-//         seq1.insert( std::next( seq1.begin(), 2 ), { 6, 7, 8, 9, 10 } );
-//         assert( seq1 == ( sc::list<int>{ 1, 2, 6, 7, 8, 9, 10, 3, 4, 5 } ) );
-
-//         // At the end
-//         seq1 = seq2;
-//         seq1.insert( seq1.end(), { 6, 7, 8, 9, 10 } );
-//         assert( seq1 == ( sc::list<int>{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } ) );
+        // At the end
+        seq1 = seq2;
+        seq1.insert( seq1.end(), source.begin(), source.end() );
+        std::cout << ">>> Seq1 == " << seq1 << std::endl;
+        std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
+        assert( seq1 == ( sc::list<int>{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } ) );
+        std::cout << ">>> Ok3\n\n";
 
 
-//         std::cout << ">>> Passed!\n\n";
-//     }
-// #ifdef IGNORE_THIS
-// // This method has the same signature as the assign( InItr, InItr ) of InItr is an integral type.
-// // So, we must block this for a while (until C++11).
-    // 
-    // {
-    //     std::cout << ">>> Unit teste #" << ++n_unit << ": assign(count, value).\n";
+        std::cout << ">>> Passed!\n\n";
+    }
+    {
+        std::cout << ">>> Unit teste #" << ++n_unit << ": insert(pos, initializer_list).\n";
 
-    //     // Initial vector.
-    //     sc::list<int> seq { 1, 2, 3, 4, 5 };
+        // Aux arrays.
+        sc::list<int> seq1 { 1, 2, 3, 4, 5 };
+        sc::list<int> seq2 { 1, 2, 3, 4, 5 };
+        sc::list<int> source { 6, 7, 8, 9, 10 };
 
-    //     // assigning count values to sc::list, with count < size().
-    //     seq.assign( 3, -1 );
-    //     assert( seq == ( sc::list<int>{ -1, -1, -1 } ) );
-    //     assert( seq.size() == 3 );
+        // Inset at the begining.
+        seq1.insert( seq1.begin(), { 6, 7, 8, 9, 10 } );
+        assert( seq1 == ( sc::list<int>{ 6, 7, 8, 9, 10, 1, 2, 3, 4, 5 } ) );
 
-    //     // assigning count values to sc::list, with count == size().
-    //     seq = { 1, 2, 3, 4, 5 };
-    //     seq.assign( 5, -1 );
-    //     assert( seq == ( sc::list<int>{ -1, -1, -1, -1, -1 } ) );
-    //     assert( seq.size() == 5 );
+        // In the middle
+        seq1 = seq2;
+        seq1.insert( std::next( seq1.begin(), 2 ), { 6, 7, 8, 9, 10 } );
+        assert( seq1 == ( sc::list<int>{ 1, 2, 6, 7, 8, 9, 10, 3, 4, 5 } ) );
 
-    //     // assigning count values to sc::list, with count > size().
-    //     seq = { 1, 2, 3, 4, 5 };
-    //     seq.assign( 8, -1 );
-    //     assert( seq == ( sc::list<int>{ -1, -1, -1, -1, -1, -1, -1, -1 } ) );
-    //     assert( seq.size() == 8 );
+        // At the end
+        seq1 = seq2;
+        seq1.insert( seq1.end(), { 6, 7, 8, 9, 10 } );
+        assert( seq1 == ( sc::list<int>{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } ) );
 
-    //     std::cout << ">>> Passed!\n\n";
-    // }
-// #endif
+
+        std::cout << ">>> Passed!\n\n";
+    }
+#ifdef IGNORE_THIS
+// This method has the same signature as the assign( InItr, InItr ) of InItr is an integral type.
+// So, we must block this for a while (until C++11).
+    
+    {
+        std::cout << ">>> Unit teste #" << ++n_unit << ": assign(count, value).\n";
+
+        // Initial vector.
+        sc::list<int> seq { 1, 2, 3, 4, 5 };
+
+        // assigning count values to sc::list, with count < size().
+        seq.assign( 3, -1 );
+        assert( seq == ( sc::list<int>{ -1, -1, -1 } ) );
+        assert( seq.size() == 3 );
+
+        // assigning count values to sc::list, with count == size().
+        seq = { 1, 2, 3, 4, 5 };
+        seq.assign( 5, -1 );
+        assert( seq == ( sc::list<int>{ -1, -1, -1, -1, -1 } ) );
+        assert( seq.size() == 5 );
+
+        // assigning count values to sc::list, with count > size().
+        seq = { 1, 2, 3, 4, 5 };
+        seq.assign( 8, -1 );
+        assert( seq == ( sc::list<int>{ -1, -1, -1, -1, -1, -1, -1, -1 } ) );
+        assert( seq.size() == 8 );
+
+        std::cout << ">>> Passed!\n\n";
+    }
+#endif
         
-//     {
-//         std::cout << ">>> Unit teste #" << ++n_unit << ": erase(first, last) and erase(pos).\n";
+    {
+        std::cout << ">>> Unit teste #" << ++n_unit << ": erase(first, last) and erase(pos).\n";
 
-//         // Initial vector.
-//         sc::list<int> seq { 1, 2, 3, 4, 5 };
+        // Initial vector.
+        sc::list<int> seq { 1, 2, 3, 4, 5 };
 
-//         // removing a segment from the beginning.
-//         auto past_last = seq.erase( seq.begin(), std::next(seq.begin(),3) );
-//         assert( seq.begin() == past_last );
-//         assert( seq == ( sc::list<int>{ 4, 5 } ) );
-//         assert( seq.size() == 2 );
+        // removing a segment from the beginning.
+        auto past_last = seq.erase( seq.begin(), std::next(seq.begin(),3) );
+        assert( seq.begin() == past_last );
+        assert( seq == ( sc::list<int>{ 4, 5 } ) );
+        assert( seq.size() == 2 );
 
 //         // removing at the middle.
-//         seq = { 1, 2, 3, 4, 5 };
-//         past_last = seq.erase( std::next(seq.begin(),1), std::next(seq.begin(),4) );
-//         assert( std::next(seq.begin(),1) == past_last );
-//         assert( seq == ( sc::list<int>{ 1, 5 } ) );
-//         assert( seq.size() == 2 );
+        seq = { 1, 2, 3, 4, 5 };
+        past_last = seq.erase( std::next(seq.begin(),1), std::next(seq.begin(),4) );
+        assert( std::next(seq.begin(),1) == past_last );
+        assert( seq == ( sc::list<int>{ 1, 5 } ) );
+        assert( seq.size() == 2 );
 
 //         // removing a segment that reached the end.
-//         seq = { 1, 2, 3, 4, 5 };
-//         past_last = seq.erase( std::next(seq.begin(),2), seq.end() );
-//         assert( seq.end() == past_last );
-//         assert( seq == ( sc::list<int>{ 1, 2 } ) );
-//         assert( seq.size() == 2 );
+        seq = { 1, 2, 3, 4, 5 };
+        past_last = seq.erase( std::next(seq.begin(),2), seq.end() );
+        assert( seq.end() == past_last );
+        assert( seq == ( sc::list<int>{ 1, 2 } ) );
+        assert( seq.size() == 2 );
 
-//         // removing the entire vector.
-//         seq = { 1, 2, 3, 4, 5 };
-//         past_last = seq.erase( seq.begin(), seq.end() );
-//         assert( seq.end() == past_last );
-//         assert( seq.empty() );
+        // removing the entire vector.
+        seq = { 1, 2, 3, 4, 5 };
+        past_last = seq.erase( seq.begin(), seq.end() );
+        assert( seq.end() == past_last );
+        assert( seq.empty() );
 
-//         std::cout << ">>> Passed!\n\n";
-//     }
-//     {
-//         std::cout << ">>> Unit teste #" << ++n_unit << ": erase(pos).\n";
+        std::cout << ">>> Passed!\n\n";
+    }
+    {
+        std::cout << ">>> Unit teste #" << ++n_unit << ": erase(pos).\n";
 
-//         // Initial vector.
-//         sc::list<int> seq { 1, 2, 3, 4, 5 };
+        // Initial vector.
+        sc::list<int> seq { 1, 2, 3, 4, 5 };
 
-//         // removing a single element.
-//         seq = { 1, 2, 3, 4, 5 };
-//         auto past_last = seq.erase( seq.begin() );
-//         assert( seq == ( sc::list<int>{ 2, 3, 4, 5 } ) );
-//         assert( seq.begin() == past_last );
-//         assert( seq.size() == 4 );
+        // removing a single element.
+        seq = { 1, 2, 3, 4, 5 };
+        auto past_last = seq.erase( seq.begin() );
+        assert( seq == ( sc::list<int>{ 2, 3, 4, 5 } ) );
+        assert( seq.begin() == past_last );
+        assert( seq.size() == 4 );
 
-//         // removing a single element in the middle.
-//         seq = { 1, 2, 3, 4, 5 };
-//         past_last = seq.erase( std::next(seq.begin(),2) );
-//         assert( seq == ( sc::list<int>{ 1, 2, 4, 5 } ) );
-//         assert( std::next(seq.begin(),2) == past_last );
-//         assert( seq.size() == 4 );
+        // removing a single element in the middle.
+        seq = { 1, 2, 3, 4, 5 };
+        past_last = seq.erase( std::next(seq.begin(),2) );
+        assert( seq == ( sc::list<int>{ 1, 2, 4, 5 } ) );
+        assert( std::next(seq.begin(),2) == past_last );
+        assert( seq.size() == 4 );
 
-//         // removing a single element at the end.
-//         seq = { 1, 2, 3, 4, 5 };
-//         past_last = seq.erase( std::next(seq.begin(),seq.size()-1 ) );
-//         assert( seq == ( sc::list<int>{ 1, 2, 3, 4 } ) );
-//         assert( seq.end() == past_last );
-//         assert( seq.size() == 4 );
+        // removing a single element at the end.
+        seq = { 1, 2, 3, 4, 5 };
+        past_last = seq.erase( std::next(seq.begin(),seq.size()-1 ) );
+        assert( seq == ( sc::list<int>{ 1, 2, 3, 4 } ) );
+        assert( seq.end() == past_last );
+        assert( seq.size() == 4 );
 
-//         std::cout << ">>> Passed!\n\n";
-//     }
+        std::cout << ">>> Passed!\n\n";
+    }
 
     return 0;
 }
