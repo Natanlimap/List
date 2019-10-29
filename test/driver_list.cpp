@@ -128,28 +128,28 @@ int main( void )
         std::cout << ">>> Passed!\n\n";
     }
 
-//     // Unit: Move assign operator.
-// #ifdef MOVE_SYNTAX_IMPLEMENTED
-//     // 
-    // {
-    //     std::cout << ">>> Unit teste #" << ++n_unit << ": move assign operator.\n";
-    //     sc::list<int> seq{ 1, 2, 3, 4, 5 };
-    //     sc::list<int> seq2;
+    // Unit: Move assign operator.
+#ifdef MOVE_SYNTAX_IMPLEMENTED
+    // 
+    {
+        std::cout << ">>> Unit teste #" << ++n_unit << ": move assign operator.\n";
+        sc::list<int> seq{ 1, 2, 3, 4, 5 };
+        sc::list<int> seq2;
 
-    //     seq2 = std::move( seq );
-    //     assert( seq2.size() == 5 );
-    //     assert( seq2.empty() == false );
-    //     assert( seq.size() == 0 );
-    //     assert( seq.empty() == true );
+        seq2 = std::move( seq );
+        assert( seq2.size() == 5 );
+        assert( seq2.empty() == false );
+        assert( seq.size() == 0 );
+        assert( seq.empty() == true );
 
-    //     // recover elements to test.
-    //     auto i{1};
-    //     for( auto e : seq2 )
-    //         assert ( e == i++ );
+        // recover elements to test.
+        auto i{1};
+        for( auto e : seq2 )
+            assert ( e == i++ );
 
-    //     std::cout << ">>> Passed!\n\n";
-    // }
-// #endif
+        std::cout << ">>> Passed!\n\n";
+    }
+#endif
 
     {
         std::cout << ">>> Unit teste #" << ++n_unit << ": initializer list assignment.\n";
@@ -364,21 +364,21 @@ int main( void )
         std::cout << ">>> Passed!\n\n";
     }
 
-    {
-        std::cout << ">>> Unit teste #" << ++n_unit << ": insert(pos, first, last).\n";
+    // {
+    //     std::cout << ">>> Unit teste #" << ++n_unit << ": insert(pos, first, last).\n";
 
-        // Aux arrays.
-        sc::list<int> seq1 { 1, 2, 3, 4, 5 };
-        sc::list<int> seq2 { 1, 2, 3, 4, 5 };
-        sc::list<int> source { 6, 7, 8, 9, 10 };
+    //     // Aux arrays.
+    //     sc::list<int> seq1 { 1, 2, 3, 4, 5 };
+    //     sc::list<int> seq2 { 1, 2, 3, 4, 5 };
+    //     sc::list<int> source { 6, 7, 8, 9, 10 };
 
-        std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
-        // Insert at the begining.
-        seq1.insert( seq1.begin(), source.begin(), source.end() );
-        std::cout << ">>> Seq1 == " << seq1 << std::endl;
-        std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
-        assert( seq1 == ( sc::list<int>{ 6, 7, 8, 9, 10, 1, 2, 3, 4, 5 } ) );
-        std::cout << ">>> Ok\n\n";
+    //     std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
+    //     // Insert at the begining.
+    //     seq1.insert( seq1.begin(), source.begin(), source.end() );
+    //     std::cout << ">>> Seq1 == " << seq1 << std::endl;
+    //     std::cout << ">>> seq1 size is: " << seq1.size() << '\n';
+    //     assert( seq1 == ( sc::list<int>{ 6, 7, 8, 9, 10, 1, 2, 3, 4, 5 } ) );
+    //     std::cout << ">>> Ok\n\n";
 
         // // In the middle
         // seq1 = seq2;
@@ -397,8 +397,8 @@ int main( void )
         // std::cout << ">>> Ok3\n\n";
 
 
-        std::cout << ">>> Passed!\n\n";
-    }
+    //     std::cout << ">>> Passed!\n\n";
+    // }
 //     {
 //         std::cout << ">>> Unit teste #" << ++n_unit << ": insert(pos, initializer_list).\n";
 
@@ -427,32 +427,34 @@ int main( void )
 // #ifdef IGNORE_THIS
 // // This method has the same signature as the assign( InItr, InItr ) of InItr is an integral type.
 // // So, we must block this for a while (until C++11).
-//     {
-//         std::cout << ">>> Unit teste #" << ++n_unit << ": assign(count, value).\n";
+    // 
+    // {
+    //     std::cout << ">>> Unit teste #" << ++n_unit << ": assign(count, value).\n";
 
-//         // Initial vector.
-//         sc::list<int> seq { 1, 2, 3, 4, 5 };
+    //     // Initial vector.
+    //     sc::list<int> seq { 1, 2, 3, 4, 5 };
 
-//         // assigning count values to sc::list, with count < size().
-//         seq.assign( 3, -1 );
-//         assert( seq == ( sc::list<int>{ -1, -1, -1 } ) );
-//         assert( seq.size() == 3 );
+    //     // assigning count values to sc::list, with count < size().
+    //     seq.assign( 3, -1 );
+    //     assert( seq == ( sc::list<int>{ -1, -1, -1 } ) );
+    //     assert( seq.size() == 3 );
 
-//         // assigning count values to sc::list, with count == size().
-//         seq = { 1, 2, 3, 4, 5 };
-//         seq.assign( 5, -1 );
-//         assert( seq == ( sc::list<int>{ -1, -1, -1, -1, -1 } ) );
-//         assert( seq.size() == 5 );
+    //     // assigning count values to sc::list, with count == size().
+    //     seq = { 1, 2, 3, 4, 5 };
+    //     seq.assign( 5, -1 );
+    //     assert( seq == ( sc::list<int>{ -1, -1, -1, -1, -1 } ) );
+    //     assert( seq.size() == 5 );
 
-//         // assigning count values to sc::list, with count > size().
-//         seq = { 1, 2, 3, 4, 5 };
-//         seq.assign( 8, -1 );
-//         assert( seq == ( sc::list<int>{ -1, -1, -1, -1, -1, -1, -1, -1 } ) );
-//         assert( seq.size() == 8 );
+    //     // assigning count values to sc::list, with count > size().
+    //     seq = { 1, 2, 3, 4, 5 };
+    //     seq.assign( 8, -1 );
+    //     assert( seq == ( sc::list<int>{ -1, -1, -1, -1, -1, -1, -1, -1 } ) );
+    //     assert( seq.size() == 8 );
 
-//         std::cout << ">>> Passed!\n\n";
-//     }
+    //     std::cout << ">>> Passed!\n\n";
+    // }
 // #endif
+        
 //     {
 //         std::cout << ">>> Unit teste #" << ++n_unit << ": erase(first, last) and erase(pos).\n";
 
