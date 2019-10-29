@@ -11,7 +11,7 @@ git clone https:://github.com/natanlimap/List.git
 ## Running the tests
 1. Enter in the test path
 
-2. On terminal, use this commands
+2. On terminal, use this command
 ```sh
 g++ -std=c++11 driver_list.cpp
 ```
