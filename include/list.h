@@ -285,12 +285,6 @@ namespace sc{ //sequence container
                 tail->next = nullptr;
             }
             //returns the object at the end of the list.
-            const T & back() const{
-                return tail->prev->data;
-            }
-            const T & front() const{
-                return head->next->data;
-            }
             bool empty(){
                 if(head->next == tail){
                     return true;
@@ -342,18 +336,26 @@ namespace sc{ //sequence container
                 insert(begin(), first, last);
             }
             void assign(std::initializer_list<T> ilist ){
-
+                clear();
+                list *temp;
+                temp = new list(ilist);
+                head = temp->head;
+                tail = temp->tail;
+            }
+            const T & back() const{
+                return tail->prev->data;
+            }
+            const T & front() const{
+                return head->next->data;
             }
 
             T& back(list <T>*&L){
-                Node *temp;
-                temp = L;
-                while(temp->next){
-                    temp = temp->next;
-                }
-                return temp->data;
-
+                return tail->prev->data;
             }
+            T& front(list <T>*&L){
+                return head->next->data;
+            }
+            
              iterator begin(){
                 return head->next;
             }
